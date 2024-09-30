@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      overflow: hidden;
+      margin: 0px;
+    }
+   
+  </style>
+  <title>Solar System : Explore the 3D Solar System</title>
+  <meta name="description"
+    content="The Solar System 3D Visualization project is an interactive web-based application that allows users to explore the Solar System in a three-dimensional environment. The project is developed using the Three.js library, which provides powerful tools for creating 3D content on the web. Users can witness the rotation of planets around the Sun and their self-rotation, as well as enjoy the beauty of space in this immersive experience." />
+  <meta name="keywords"
+    content="three.js, solar system, 3D, space, planets, astronomy, stars, sun, mercury, venus, earth, mars, jupiter, saturn, uranus, neptune, pluto" />
+
+  <meta property="og:title" content="Solar System : Explore the 3D Solar System" />
+  <meta property="og:description"
+    content="The Solar System 3D Visualization project is an interactive web-based application that allows users to explore the Solar System in a three-dimensional environment. The project is developed using the Three.js library, which provides powerful tools for creating 3D content on the web. Users can witness the rotation of planets around the Sun and their self-rotation, as well as enjoy the beauty of space in this immersive experience." />
+  <meta property="og:url" content="https://ankitjha2603.github.io/solar-system3D/" />
+  <meta property="og:type" content="website" />
+  <!-------------------------->
+  <!-- Sitemap -->
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="https://ankitjha2603.github.io/sitemap.xml" />
+  <!-------------------------->
+
+  <!----------------------------------------------------------------------------->
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4J64SC1QY7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "G-4J64SC1QY7");
+  </script>
+  <!--Google verification--->
+  <meta name="google-site-verification" content="5QsjbXuM1buDwEtnxWDKN9dE1qgf_dgz646EdwUxSWg" />
+
+  <!----------------------------------------------------------------------------->
+  <link rel="icon" type="image/png" href="./image/solar-system.png" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.6/dat.gui.min.js"></script>
+</head>
+
+<body>
+<div id="planet-name" style="
+    position: absolute;
+    top: 50px;
+    left: 1000px;
+    font-size: 50px;
+    background-color: black;
+    box-shadow: rgb(49, 49, 49);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1000;
+    background-color: black; 
+    box-shadow: 0 4px 20px rgba(56, 56, 56, 0.5); 
+    border: white solid 3px;
+    border-radius: 20px;
+
+"></div>
+
+<div id="planet-info" style="
+    position: absolute;
+    top: 50px;
+    left: 300px;
+    font-size: 30px; 
+    background-color: black; 
+    box-shadow: 0 4px 20px rgba(56, 56, 56, 0.5); 
+    color: white;
+    padding: 30px; 
+    border-radius: 30px;
+    z-index: 1000;
+    border: white solid 3px;
+"></div>
+
+
+<select id="planet-selector"
+  style="position: absolute; top: 10px; left: 10px; padding: 10px; font-size: 25px; z-index: 1000; color: white; background-color: black;"
+  onchange="window.location.href=this.value;">
+
+  <option value="" disabled selected style="color: gray;">Celestial</option> <!-- Default placeholder option -->
+  <optgroup>
+    <option value="">Select a planet</option>
+    <option value="sun.html">Sun</option>
+    <option value="mercury.html">Mercury</option>
+    <option value="venus.html">Venus</option>
+    <option value="earth.html">Earth</option>
+    <option value="mars.html">Mars</option>
+    <option value="jupiter.html">Jupiter</option>
+    <option value="saturn.html">Saturn</option>
+    <option value="uranus.html">Uranus</option>
+    <option value="space.html">Neptune</option>
+    <option value="space.html">Pluto</option>
+
+  </optgroup>
+</select>
+
+
+  <script src="solar_system.js" type="module"> </script>
+
+</body>
+
+</html>
