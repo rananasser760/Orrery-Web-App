@@ -386,3 +386,63 @@ window.addEventListener("resize", () => {
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 });
+
+// fetching api of asteroids from nasa dataset
+const apiKey = '4d2L3TDs3TJAQwG8mcEaVk6Hc1dBa6QFYfHdV63M';  // Replace with your NASA API key
+const apiUrl = `https://api.nasa.gov/neo/rest/v1/feed?start_date=2024-10-01&end_date=2024-10-07&api_key=${apiKey}`;
+
+
+
+// Load the asteroid texture
+const asteroidTexture = textureLoader.load('image/asteroid4.png');
+
+function displayAsteroidsAroundPlanets(planets, asteroids, numAsteroidsPerPlanet = 10) {
+    Object.keys(asteroids).forEach(date => {
+        asteroids[date].forEach(asteroid => {
+            planets.forEach(planetData => {
+                const planetPosition = planetData.planet.position;
+
+                for (let i = 0; i < numAsteroidsPerPlanet; i++) {
+                    // Create asteroid geometry and material with texture
+                    const geometry = new THREE.SphereGeometry(10, 20, 20);
+                    const material = new THREE.MeshBasicMaterial({ map: asteroidTexture });
+                    const asteroidMesh = new THREE.Mesh(geometry, material);
+                    let j = 2;
+                    // Set asteroid position relative to the planet
+                    const radius = 5 + Math.random() * j; // Set a random radius around the planet
+                    const angle = Math.random() * Math.PI * j; // Random angle for position
+                    asteroidMesh.position.set(
+                        planetPosition.x + radius * Math.cos(angle),
+                        planetPosition.y,
+                        planetPosition.z + radius * Math.sin(angle)
+                    );
+
+                    console.log(`Asteroid position: ${asteroidMesh.position.x}, ${asteroidMesh.position.y}, ${asteroidMesh.position.z}`);
+
+                    // Add the asteroid to the scene
+                    scene.add(asteroidMesh);
+
+                    // Optionally, add asteroid name as text
+                    const asteroidName = asteroid.name;
+                    const textGeometry = new THREE.TextGeometry(asteroidName, { font: yourFont, size: 0.2, height: 0.05 });
+                    const textMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+                    const textMesh = new THREE.Mesh(textGeometry, textMaterial);
+
+                    // Position the text above the asteroid
+                    textMesh.position.set(asteroidMesh.position.x, asteroidMesh.position.y + 0.5, asteroidMesh.position.z);
+                    scene.add(textMesh);
+                }
+            });
+        });
+    });
+}
+
+// Call the asteroid display function after planets are generated
+fetch(apiUrl)
+  .then(response => response.json())
+  .then(data => {
+    const asteroids = data.near_earth_objects;
+    console.log('Asteroids data:', asteroids);
+    displayAsteroidsAroundPlanets(planets, asteroids);
+  })
+  .catch(error => console.error('Error fetching asteroid data:', error));
