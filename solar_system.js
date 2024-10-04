@@ -98,7 +98,8 @@ const neptuneTexture = textureLoader.load("image/2k_neptune.jpg");
 const plutoTexture = textureLoader.load("image/pluto.jpg");
 const saturnRingTexture = textureLoader.load("image/saturn_ring.png");
 const uranusRingTexture = textureLoader.load("image/uranus_ring.png");
-const earth_moonTexture = textureLoader.load("image/8k_moon.jpg")
+const earth_moonTexture = textureLoader.load("image/8k_moon.jpg");
+const mars_PhobosTexture = textureLoader.load("image/8k_moon.jpg");
 
 //////////////////////////////////////
 // Creating scene
@@ -253,6 +254,8 @@ const planets = [
         ...genratePlanet(4, marsTexture, 78), // Mars' diameter should be about 6,779 km
         rotaing_speed_around_sun: 0.008, // Mars takes about 687 Earth days to orbit the Sun
         self_rotation_speed: 0.018, // Mars rotates once every 24.6 hours
+        
+        // has two moons phobos, phobos larger than Deimos
     },
     {
         ...genratePlanet(12, jupiterTexture, 100), // Jupiter's diameter is about 139,820 km
@@ -423,6 +426,39 @@ window.addEventListener("resize", () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
+// Asteroids/Comets around Earth
+// Asteroids/Comets around Earth
+// function createAsteroids() {
+//     const asteroidGroup = new THREE.Group();
+//     const asteroidMaterial = new THREE.MeshBasicMaterial({ color: 575689 });
+//     let p = 20;
+//     for (let i = 0; i < 15; i++) {
+//         const size = Math.random() * 10;
+//         const geometry = new THREE.SphereGeometry(size, 16, 16);
+//         const asteroid = new THREE.Mesh(geometry, asteroidMaterial);
+
+//         // Adjust the position around Earth
+//         asteroid.position.set(
+//             planets[2].planetObj.position.x + p, // Random offset around Earth
+//             planets[2].planetObj.position.y + p, // Random offset around Earth
+//             planets[2].planetObj.position.z   // Random offset around Earth
+//         );
+        
+//         asteroidGroup.add(asteroid);
+//         p +=10;
+//     }
+    
+//     scene.add(asteroidGroup);
+//     console.log("Asteroids added to the scene:", asteroidGroup.children.length); // Log the number of asteroids added
+// }
+
+// createAsteroids();
+
+
+// Add light source for the Sun
+// const sunLight = new THREE.PointLight(0xFFFFFF, 2, 100);
+// sunLight.position.set(0, 0, 0);
+scene.add(sunLight);
 
 // const apiKey = '4d2L3TDs3TJAQwG8mcEaVk6Hc1dBa6QFYfHdV63M';  // Replace with your NASA API key
 // const apiUrl = `https://api.nasa.gov/neo/rest/v1/feed?start_date=2024-10-01&end_date=2024-10-07&api_key=${apiKey}`;
