@@ -121,7 +121,7 @@ const scene = new THREE.Scene();
 
 
 //background
-const backgroundTexture = textureLoader.load("image/8k_stars.jpg");
+const backgroundTexture = textureLoader.load("media/stars-galaxy-3840x2560-10307.jpg");
 scene.background = backgroundTexture;
 
 
