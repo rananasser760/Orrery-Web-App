@@ -261,7 +261,7 @@ const planets = [
         rotaing_speed_around_sun: 0.01, // Earth takes 365.25 days to orbit the Sun
         self_rotation_speed: 0.02, // Earth rotates once every 24 hours
         moons: [
-            generateMoon(1.6362, earth_moonTexture, 71,0,0) // Earth's moon
+            generateMoon(1.6362, earth_moonTexture, 68,6,-6) // Earth's moon
         ],  // Adding the moon here
 
     },
@@ -270,14 +270,20 @@ const planets = [
         rotaing_speed_around_sun: 0.008, // Mars takes about 687 Earth days to orbit the Sun
         self_rotation_speed: 0.018, // Mars rotates once every 24.6 hours
         moons: [
-            generateMoon(1.056, mars_PhobosTexture, 85,0,0), // Phobos
-            generateMoon(0.5844, mars_DeimosTexture, 90,5,5) // Deimos
+            generateMoon(1.056, mars_PhobosTexture, 83,6,3), // Phobos
+            generateMoon(0.5844, mars_DeimosTexture, 74,3,3) // Deimos
         ],
     },
     {
         ...genratePlanet(12, jupiterTexture, 100), // Jupiter's diameter is about 139,820 km
         rotaing_speed_around_sun: 0.002, // Jupiter takes about 12 Earth years to orbit the Sun
         self_rotation_speed: 0.04, // Jupiter rotates very quickly, once every 10 hours
+        moons: [
+            generateMoon(4.8,jupiter_GanymedeTexture,120,6,2),
+            generateMoon(4,jupiter_CallistaTexture,87,-5,-8),
+            generateMoon(2.5,jupiter_IOTexture,85,-2,9),
+            generateMoon(4.2,jupiter_EuropaTexture,120,4.5,-17)
+        ]
     },
     {
         ...genratePlanet(10, saturnTexture, 138, {
@@ -287,6 +293,11 @@ const planets = [
         }), // Saturn's diameter is about 116,460 km
         rotaing_speed_around_sun: 0.0009, // Saturn takes about 29.5 Earth years to orbit the Sun
         self_rotation_speed: 0.038, // Saturn rotates once every 10.7 hours
+
+        moons: [
+            generateMoon(2,saturn_TitanTexture,125,6,0),
+            generateMoon(0.5,saturn_EnceladusTexture,125,7,-6)
+        ]
     },
     {
         ...genratePlanet(7, uranusTexture, 176, {
@@ -296,16 +307,29 @@ const planets = [
         }), // Uranus' diameter is about 50,724 km
         rotaing_speed_around_sun: 0.0004, // Uranus takes about 84 Earth years to orbit the Sun
         self_rotation_speed: 0.03, // Uranus rotates once every 17 hours
+
+        moons: [
+            generateMoon(0.1 , Uranus_MirandaTexture,165,6,0),
+            generateMoon(0.23 , Uranus_ArielTexture,165,7,-6)
+
+        ]
     },
     {
         ...genratePlanet(7, neptuneTexture, 200), // Neptune's diameter is about 49,244 km
         rotaing_speed_around_sun: 0.0001, // Neptune takes about 165 Earth years to orbit the Sun
         self_rotation_speed: 0.032, // Neptune rotates once every 16 hours
+        moons: [
+            generateMoon(0.4, Neptune_TritonTexture,190,-5,0),
+            generateMoon(0.29, Neptune_GalateaTexture,190,6,-3),
+        ]
     },
     {
         ...genratePlanet(2.8, plutoTexture, 216), // Pluto's diameter is about 2,377 km
         rotaing_speed_around_sun: 0.0007, // Pluto takes about 248 Earth years to orbit the Sun
         self_rotation_speed: 0.008, // Pluto rotates once every 6.4 Earth days
+        moons: [
+            generateMoon(1.4, pluto_charonTexture, 213,5,0)
+        ]
     },
 
 
@@ -316,6 +340,29 @@ const planets = [
 planets[2].planetObj.add(planets[2].moons[0].moonOrbit); // Adding Earth's moon to Earth
 planets[3].planetObj.add(planets[3].moons[0].moonOrbit); // Adding Phobos to Mars
 planets[3].planetObj.add(planets[3].moons[1].moonOrbit); // Adding Deimos to Mars
+
+planets[4].planetObj.add(planets[4].moons[0].moonOrbit); // Adding Ganymede to Jupiter
+planets[4].planetObj.add(planets[4].moons[1].moonOrbit); // Adding Callista to Jupiter
+planets[4].planetObj.add(planets[4].moons[2].moonOrbit); // Adding IO to Jupiter
+planets[4].planetObj.add(planets[4].moons[3].moonOrbit); // Adding Europa to Jupiter
+
+planets[5].planetObj.add(planets[5].moons[0].moonOrbit); // Adding Titan to Saturn
+planets[5].planetObj.add(planets[5].moons[1].moonOrbit); // Adding Enceladus to saturn
+
+planets[6].planetObj.add(planets[6].moons[0].moonOrbit); // Adding Miranda to Uranus
+planets[6].planetObj.add(planets[6].moons[1].moonOrbit); // Adding Ariel to Uranus
+
+planets[7].planetObj.add(planets[7].moons[0].moonOrbit); // Adding Triton to Neptune
+planets[7].planetObj.add(planets[7].moons[1].moonOrbit); // Adding Galatea to Neptuen
+
+planets[8].planetObj.add(planets[8].moons[0].moonOrbit); // Adding Charon to Pluto
+
+
+
+
+
+
+
 
 //////////////////////////////////////
 //NOTE - GUI options
