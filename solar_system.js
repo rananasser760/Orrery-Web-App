@@ -422,3 +422,84 @@ window.addEventListener("resize", () => {
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 });
+
+
+// const apiKey = '4d2L3TDs3TJAQwG8mcEaVk6Hc1dBa6QFYfHdV63M';  // Replace with your NASA API key
+// const apiUrl = `https://api.nasa.gov/neo/rest/v1/feed?start_date=2024-10-01&end_date=2024-10-07&api_key=${apiKey}`;
+// const asteroidTexture = textureLoader.load('image/asteroid4.png');
+// console.log('Asteroid Texture:', asteroidTexture);
+
+// function displayAsteroidsAroundPlanets(planets, asteroidsData) {
+//     Object.keys(asteroidsData).forEach(date => {
+//         asteroidsData[date].forEach(asteroid => {
+//             planets.forEach(planetData => {
+//                 const planetPosition = planetData.position;
+//                 const asteroidName = asteroid.name;
+
+//                 const diameterKm = (asteroid.estimated_diameter.kilometers.estimated_diameter_max + asteroid.estimated_diameter.kilometers.estimated_diameter_min) / 2;
+//                 const velocity = parseFloat(asteroid.close_approach_data[0].relative_velocity.kilometers_per_second); // Velocity in km/s
+
+//                 const geometry = new THREE.SphereGeometry(diameterKm * 100, 32, 32);  // Scale the size of the asteroid
+//                 const material = new THREE.MeshBasicMaterial({ map: asteroidTexture });
+//                 const asteroidMesh = new THREE.Mesh(geometry, material);
+
+//                 console.log('Asteroid Mesh:', asteroidMesh);
+
+//                 const radius = 5 + Math.random() * 10; // Random radius around planet
+//                 const angle = Math.random() * Math.PI * 2; // Random angle for position
+//                 asteroidMesh.position.set(
+//                     planetPosition.x + radius * Math.cos(angle),
+//                     planetPosition.y,
+//                     planetPosition.z + radius * Math.sin(angle)
+//                 );
+
+//                 scene.add(asteroidMesh);
+//                 console.log('Asteroid added to scene:', asteroidMesh);
+
+//                 asteroidMesh.userData = {
+//                     velocity: velocity / 1000,  // Convert km/s to units more suitable for the scene
+//                     angle: angle,
+//                     radius: radius,
+//                     planetPosition: planetPosition
+//                 };
+
+//                 const textGeometry = new THREE.TextGeometry(asteroidName, { font: yourFont, size: 30, height: 20 });
+//                 const textMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+//                 const textMesh = new THREE.Mesh(textGeometry, textMaterial);
+//                 textMesh.position.set(asteroidMesh.position.x, asteroidMesh.position.y + 0.5, asteroidMesh.position.z);
+//                 scene.add(textMesh);
+//                 console.log('Text added to scene:', textMesh);
+//             });
+//         });
+//     });
+// }
+
+// function animateAsteroids() {
+//     scene.traverse(object => {
+//         if (object.userData.velocity) {
+//             object.userData.angle += object.userData.velocity * 5; 
+//             object.position.set(
+//                 object.userData.planetPosition.x + object.userData.radius * Math.cos(object.userData.angle),
+//                 object.userData.planetPosition.y,
+//                 object.userData.planetPosition.z + object.userData.radius * Math.sin(object.userData.angle)
+//             );
+//             console.log('Asteroid position updated:', object.position);
+//         }
+//     });
+// }
+
+// fetch(apiUrl)
+//     .then(response => response.json())
+//     .then(data => {
+//         const asteroids = data.near_earth_objects;
+//         console.log('Fetched Asteroids Data:', asteroids);
+//         displayAsteroidsAroundPlanets(planets, asteroids);
+//     })
+//     .catch(error => console.error('Error fetching asteroid data:', error));
+
+// function render() {
+//     requestAnimationFrame(render);
+//     animateAsteroids();  // Update asteroid positions
+//     renderer.render(scene, camera);
+// }
+// render();
