@@ -98,6 +98,21 @@ const neptuneTexture = textureLoader.load("image/2k_neptune.jpg");
 const plutoTexture = textureLoader.load("image/pluto.jpg");
 const saturnRingTexture = textureLoader.load("image/saturn_ring.png");
 const uranusRingTexture = textureLoader.load("image/uranus_ring.png");
+const earth_moonTexture = textureLoader.load("image/8k_moon.jpg");
+const mars_PhobosTexture = textureLoader.load("image/phobos_mars1.jpg");
+const mars_DeimosTexture = textureLoader.load("image/Deimos_mars2.jpg");
+const jupiter_GanymedeTexture = textureLoader.load("image/Jupiter_Ganymede.jpg");
+const jupiter_CallistaTexture = textureLoader.load("image/Jupiter_Callisto.jpg");
+const jupiter_IOTexture = textureLoader.load("image/Jupiter_IO.webp");
+const jupiter_EuropaTexture = textureLoader.load("image/Jupiter_Europa.jpg");
+const saturn_TitanTexture = textureLoader.load("image/Saturn_titan.jpg");
+const saturn_EnceladusTexture = textureLoader.load("image/Saturn_Enceladus.jpg");
+const Uranus_MirandaTexture = textureLoader.load("image/Uranus_Miranda.jpg");
+const Uranus_ArielTexture = textureLoader.load("image/Uranus_Ariel.jpg");
+const Neptune_TritonTexture = textureLoader.load("image/Neptune_triton.jpg");
+const Neptune_GalateaTexture = textureLoader.load("image/Neptune_Galatea.jpg");
+const pluto_charonTexture = textureLoader.load("image/pluto_CharonTexture.jpg");
+
 
 //////////////////////////////////////
 // Creating scene
@@ -207,6 +222,29 @@ const genratePlanet = (size, planetTexture, x, ring) => {
     };
 };
 
+
+// Function to create the Moon and add it to Earth
+const generateMoon = (size, earth_moonTexture, distanceFromEarth,x,y) => {
+    const moonGeometry = new THREE.SphereGeometry(size, 50, 50);
+    const moonMaterial = new THREE.MeshStandardMaterial({ map: earth_moonTexture });
+    const moon = new THREE.Mesh(moonGeometry, moonMaterial);
+
+    // Position the moon relative to Earth
+    const MoonObj = new THREE.Object3D();
+    moon.position.set(distanceFromEarth, x,y);
+
+    scene.add(MoonObj);
+
+    MoonObj.add(moon);
+    // createLineLoopWithMesh(MoonObj, 0xffffff, 3);
+    return {
+        moonOrbit: MoonObj,
+        moon: moon,
+    };
+};
+
+
+
 const planets = [
     {
         ...genratePlanet(3.2, mercuryTexture, 28), // Mercury's diameter should be about 4,880 km
@@ -222,16 +260,30 @@ const planets = [
         ...genratePlanet(6, earthTexture, 62), // Earth's diameter is approximately 12,742 km
         rotaing_speed_around_sun: 0.01, // Earth takes 365.25 days to orbit the Sun
         self_rotation_speed: 0.02, // Earth rotates once every 24 hours
+        moons: [
+            generateMoon(1.6362, earth_moonTexture, 68,6,-6) // Earth's moon
+        ],  // Adding the moon here
+
     },
     {
         ...genratePlanet(4, marsTexture, 78), // Mars' diameter should be about 6,779 km
         rotaing_speed_around_sun: 0.008, // Mars takes about 687 Earth days to orbit the Sun
         self_rotation_speed: 0.018, // Mars rotates once every 24.6 hours
+        moons: [
+            generateMoon(1.056, mars_PhobosTexture, 83,6,3), // Phobos
+            generateMoon(0.5844, mars_DeimosTexture, 74,3,3) // Deimos
+        ],
     },
     {
         ...genratePlanet(12, jupiterTexture, 100), // Jupiter's diameter is about 139,820 km
         rotaing_speed_around_sun: 0.002, // Jupiter takes about 12 Earth years to orbit the Sun
         self_rotation_speed: 0.04, // Jupiter rotates very quickly, once every 10 hours
+        moons: [
+            generateMoon(4.8,jupiter_GanymedeTexture,120,6,2),
+            generateMoon(4,jupiter_CallistaTexture,87,-5,-8),
+            generateMoon(2.5,jupiter_IOTexture,85,-2,9),
+            generateMoon(4.2,jupiter_EuropaTexture,120,4.5,-17)
+        ]
     },
     {
         ...genratePlanet(10, saturnTexture, 138, {
@@ -241,6 +293,11 @@ const planets = [
         }), // Saturn's diameter is about 116,460 km
         rotaing_speed_around_sun: 0.0009, // Saturn takes about 29.5 Earth years to orbit the Sun
         self_rotation_speed: 0.038, // Saturn rotates once every 10.7 hours
+
+        moons: [
+            generateMoon(2,saturn_TitanTexture,125,6,0),
+            generateMoon(0.5,saturn_EnceladusTexture,125,7,-6)
+        ]
     },
     {
         ...genratePlanet(7, uranusTexture, 176, {
@@ -250,18 +307,61 @@ const planets = [
         }), // Uranus' diameter is about 50,724 km
         rotaing_speed_around_sun: 0.0004, // Uranus takes about 84 Earth years to orbit the Sun
         self_rotation_speed: 0.03, // Uranus rotates once every 17 hours
+
+        moons: [
+            generateMoon(0.1 , Uranus_MirandaTexture,165,6,0),
+            generateMoon(0.23 , Uranus_ArielTexture,165,7,-6)
+
+        ]
     },
     {
         ...genratePlanet(7, neptuneTexture, 200), // Neptune's diameter is about 49,244 km
         rotaing_speed_around_sun: 0.0001, // Neptune takes about 165 Earth years to orbit the Sun
         self_rotation_speed: 0.032, // Neptune rotates once every 16 hours
+        moons: [
+            generateMoon(0.4, Neptune_TritonTexture,190,-5,0),
+            generateMoon(0.29, Neptune_GalateaTexture,190,6,-3),
+        ]
     },
     {
         ...genratePlanet(2.8, plutoTexture, 216), // Pluto's diameter is about 2,377 km
         rotaing_speed_around_sun: 0.0007, // Pluto takes about 248 Earth years to orbit the Sun
         self_rotation_speed: 0.008, // Pluto rotates once every 6.4 Earth days
+        moons: [
+            generateMoon(1.4, pluto_charonTexture, 213,5,0)
+        ]
     },
+
+
 ];
+
+
+// Ensure you add the moon orbit object to the planet object
+planets[2].planetObj.add(planets[2].moons[0].moonOrbit); // Adding Earth's moon to Earth
+planets[3].planetObj.add(planets[3].moons[0].moonOrbit); // Adding Phobos to Mars
+planets[3].planetObj.add(planets[3].moons[1].moonOrbit); // Adding Deimos to Mars
+
+planets[4].planetObj.add(planets[4].moons[0].moonOrbit); // Adding Ganymede to Jupiter
+planets[4].planetObj.add(planets[4].moons[1].moonOrbit); // Adding Callista to Jupiter
+planets[4].planetObj.add(planets[4].moons[2].moonOrbit); // Adding IO to Jupiter
+planets[4].planetObj.add(planets[4].moons[3].moonOrbit); // Adding Europa to Jupiter
+
+planets[5].planetObj.add(planets[5].moons[0].moonOrbit); // Adding Titan to Saturn
+planets[5].planetObj.add(planets[5].moons[1].moonOrbit); // Adding Enceladus to saturn
+
+planets[6].planetObj.add(planets[6].moons[0].moonOrbit); // Adding Miranda to Uranus
+planets[6].planetObj.add(planets[6].moons[1].moonOrbit); // Adding Ariel to Uranus
+
+planets[7].planetObj.add(planets[7].moons[0].moonOrbit); // Adding Triton to Neptune
+planets[7].planetObj.add(planets[7].moons[1].moonOrbit); // Adding Galatea to Neptuen
+
+planets[8].planetObj.add(planets[8].moons[0].moonOrbit); // Adding Charon to Pluto
+
+
+
+
+
+
 
 
 //////////////////////////////////////
@@ -295,7 +395,8 @@ const planetNames = [
     "Saturn",
     "Uranus",
     "Neptune",
-    "Pluto"
+    "Pluto",
+    "earthMoon"
 ];
 
 const planetDataa = {
@@ -366,16 +467,31 @@ console.log(planetData);
 //Animation loop
 const animate = () => {
     requestAnimationFrame(animate);
+    
     planets.forEach((planet) => {
         // Rotate planets
         planet.planet.rotation.y += planet.self_rotation_speed * options.speed;
         planet.planetObj.rotation.y += planet.rotaing_speed_around_sun * options.speed;
+
+        // Check if the planet has moons
+        if (planet.moons && planet.moons.length > 0) {
+
+            planet.moons.forEach((moon) => {
+
+                // Update moon self-rotation
+                // planet.moon.moonOrbit.rotation.y += planet.rotaing_speed_around_sun * 0.001 * options.speed;  // Moon orbiting Earth
+                moon.moon.rotation.y += 0.01 * options.speed;
+
+            });
+        }
     });
+
     updatePlanetName(); // Update planet name on each frame
     orbit.update();
     
     renderer.render(scene, camera);
 };
+
 
 animate();
 
@@ -386,3 +502,122 @@ window.addEventListener("resize", () => {
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 });
+
+
+
+/*
+// Asteroids/Comets around Earth
+// Asteroids/Comets around Earth
+// function createAsteroids() {
+//     const asteroidGroup = new THREE.Group();
+//     const asteroidMaterial = new THREE.MeshBasicMaterial({ color: 575689 });
+//     let p = 20;
+//     for (let i = 0; i < 15; i++) {
+//         const size = Math.random() * 10;
+//         const geometry = new THREE.SphereGeometry(size, 16, 16);
+//         const asteroid = new THREE.Mesh(geometry, asteroidMaterial);
+
+//         // Adjust the position around Earth
+//         asteroid.position.set(
+//             planets[2].planetObj.position.x + p, // Random offset around Earth
+//             planets[2].planetObj.position.y + p, // Random offset around Earth
+//             planets[2].planetObj.position.z   // Random offset around Earth
+//         );
+        
+//         asteroidGroup.add(asteroid);
+//         p +=10;
+//     }
+    
+//     scene.add(asteroidGroup);
+//     console.log("Asteroids added to the scene:", asteroidGroup.children.length); // Log the number of asteroids added
+// }
+
+// createAsteroids();
+
+
+// Add light source for the Sun
+// const sunLight = new THREE.PointLight(0xFFFFFF, 2, 100);
+// sunLight.position.set(0, 0, 0);
+scene.add(sunLight);
+
+// const apiKey = '4d2L3TDs3TJAQwG8mcEaVk6Hc1dBa6QFYfHdV63M';  // Replace with your NASA API key
+// const apiUrl = `https://api.nasa.gov/neo/rest/v1/feed?start_date=2024-10-01&end_date=2024-10-07&api_key=${apiKey}`;
+// const asteroidTexture = textureLoader.load('image/asteroid4.png');
+// console.log('Asteroid Texture:', asteroidTexture);
+
+// function displayAsteroidsAroundPlanets(planets, asteroidsData) {
+//     Object.keys(asteroidsData).forEach(date => {
+//         asteroidsData[date].forEach(asteroid => {
+//             planets.forEach(planetData => {
+//                 const planetPosition = planetData.position;
+//                 const asteroidName = asteroid.name;
+
+//                 const diameterKm = (asteroid.estimated_diameter.kilometers.estimated_diameter_max + asteroid.estimated_diameter.kilometers.estimated_diameter_min) / 2;
+//                 const velocity = parseFloat(asteroid.close_approach_data[0].relative_velocity.kilometers_per_second); // Velocity in km/s
+
+//                 const geometry = new THREE.SphereGeometry(diameterKm * 100, 32, 32);  // Scale the size of the asteroid
+//                 const material = new THREE.MeshBasicMaterial({ map: asteroidTexture });
+//                 const asteroidMesh = new THREE.Mesh(geometry, material);
+
+//                 console.log('Asteroid Mesh:', asteroidMesh);
+
+//                 const radius = 5 + Math.random() * 10; // Random radius around planet
+//                 const angle = Math.random() * Math.PI * 2; // Random angle for position
+//                 asteroidMesh.position.set(
+//                     planetPosition.x + radius * Math.cos(angle),
+//                     planetPosition.y,
+//                     planetPosition.z + radius * Math.sin(angle)
+//                 );
+
+//                 scene.add(asteroidMesh);
+//                 console.log('Asteroid added to scene:', asteroidMesh);
+
+//                 asteroidMesh.userData = {
+//                     velocity: velocity / 1000,  // Convert km/s to units more suitable for the scene
+//                     angle: angle,
+//                     radius: radius,
+//                     planetPosition: planetPosition
+//                 };
+
+//                 const textGeometry = new THREE.TextGeometry(asteroidName, { font: yourFont, size: 30, height: 20 });
+//                 const textMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+//                 const textMesh = new THREE.Mesh(textGeometry, textMaterial);
+//                 textMesh.position.set(asteroidMesh.position.x, asteroidMesh.position.y + 0.5, asteroidMesh.position.z);
+//                 scene.add(textMesh);
+//                 console.log('Text added to scene:', textMesh);
+//             });
+//         });
+//     });
+// }
+
+// function animateAsteroids() {
+//     scene.traverse(object => {
+//         if (object.userData.velocity) {
+//             object.userData.angle += object.userData.velocity * 5; 
+//             object.position.set(
+//                 object.userData.planetPosition.x + object.userData.radius * Math.cos(object.userData.angle),
+//                 object.userData.planetPosition.y,
+//                 object.userData.planetPosition.z + object.userData.radius * Math.sin(object.userData.angle)
+//             );
+//             console.log('Asteroid position updated:', object.position);
+//         }
+//     });
+// }
+
+// fetch(apiUrl)
+//     .then(response => response.json())
+//     .then(data => {
+//         const asteroids = data.near_earth_objects;
+//         console.log('Fetched Asteroids Data:', asteroids);
+//         displayAsteroidsAroundPlanets(planets, asteroids);
+//     })
+//     .catch(error => console.error('Error fetching asteroid data:', error));
+
+// function render() {
+//     requestAnimationFrame(render);
+//     animateAsteroids();  // Update asteroid positions
+//     renderer.render(scene, camera);
+// }
+// render();
+
+*/
