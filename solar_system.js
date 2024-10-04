@@ -101,6 +101,18 @@ const uranusRingTexture = textureLoader.load("image/uranus_ring.png");
 const earth_moonTexture = textureLoader.load("image/8k_moon.jpg");
 const mars_PhobosTexture = textureLoader.load("image/phobos_mars1.jpg");
 const mars_DeimosTexture = textureLoader.load("image/Deimos_mars2.jpg");
+const jupiter_GanymedeTexture = textureLoader.load("image/Jupiter_Ganymede.jpg");
+const jupiter_CallistaTexture = textureLoader.load("image/Jupiter_Callisto.jpg");
+const jupiter_IOTexture = textureLoader.load("image/Jupiter_IO.webp");
+const jupiter_EuropaTexture = textureLoader.load("image/Jupiter_Europa.jpg");
+const saturn_TitanTexture = textureLoader.load("image/Saturn_titan.jpg");
+const saturn_EnceladusTexture = textureLoader.load("image/Saturn_Enceladus.jpg");
+const Uranus_MirandaTexture = textureLoader.load("image/Uranus_Miranda.jpg");
+const Uranus_ArielTexture = textureLoader.load("image/Uranus_Ariel.jpg");
+const Neptune_TritonTexture = textureLoader.load("image/Neptune_triton.jpg");
+const Neptune_GalateaTexture = textureLoader.load("image/Neptune_Galatea.jpg");
+const pluto_charonTexture = textureLoader.load("image/pluto_CharonTexture.jpg");
+
 
 //////////////////////////////////////
 // Creating scene
@@ -212,14 +224,14 @@ const genratePlanet = (size, planetTexture, x, ring) => {
 
 
 // Function to create the Moon and add it to Earth
-const generateMoon = (size, earth_moonTexture, distanceFromEarth) => {
+const generateMoon = (size, earth_moonTexture, distanceFromEarth,x,y) => {
     const moonGeometry = new THREE.SphereGeometry(size, 50, 50);
     const moonMaterial = new THREE.MeshStandardMaterial({ map: earth_moonTexture });
     const moon = new THREE.Mesh(moonGeometry, moonMaterial);
 
     // Position the moon relative to Earth
     const MoonObj = new THREE.Object3D();
-    moon.position.set(distanceFromEarth, 0, 0);
+    moon.position.set(distanceFromEarth, x,y);
 
     scene.add(MoonObj);
 
@@ -249,7 +261,7 @@ const planets = [
         rotaing_speed_around_sun: 0.01, // Earth takes 365.25 days to orbit the Sun
         self_rotation_speed: 0.02, // Earth rotates once every 24 hours
         moons: [
-            generateMoon(2.5, earth_moonTexture, 85) // Earth's moon
+            generateMoon(1.6362, earth_moonTexture, 71,0,0) // Earth's moon
         ],  // Adding the moon here
 
     },
@@ -258,8 +270,8 @@ const planets = [
         rotaing_speed_around_sun: 0.008, // Mars takes about 687 Earth days to orbit the Sun
         self_rotation_speed: 0.018, // Mars rotates once every 24.6 hours
         moons: [
-            generateMoon(2.5, mars_PhobosTexture, 85), // Phobos
-            generateMoon(1, mars_DeimosTexture, 90) // Deimos
+            generateMoon(1.056, mars_PhobosTexture, 85,0,0), // Phobos
+            generateMoon(0.5844, mars_DeimosTexture, 90,5,5) // Deimos
         ],
     },
     {
@@ -416,19 +428,13 @@ const animate = () => {
 
         // Check if the planet has moons
         if (planet.moons && planet.moons.length > 0) {
-            // Update moon's orbit
-            // Moon's orbiting speed
 
             planet.moons.forEach((moon) => {
 
                 // Update moon self-rotation
-                mooon.moonOrbit.rotation.y = 0.005 * planet.planetObj.rotation.y;
-                moon.moon.rotation.y += 0.01 * options.speed; // Moon self-rotation
+                // planet.moon.moonOrbit.rotation.y += planet.rotaing_speed_around_sun * 0.001 * options.speed;  // Moon orbiting Earth
+                moon.moon.rotation.y += 0.01 * options.speed;
 
-                // Ensure the moon is added to its parent orbit
-                // if (!planet.moonOrbit.children.includes(moon.moon)) {
-                //     planet.moonOrbit.add(moon.moon); // Ensure the moon is added if not already present
-                // }
             });
         }
     });
@@ -450,6 +456,9 @@ window.addEventListener("resize", () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
+
+
+/*
 // Asteroids/Comets around Earth
 // Asteroids/Comets around Earth
 // function createAsteroids() {
@@ -563,3 +572,5 @@ scene.add(sunLight);
 //     renderer.render(scene, camera);
 // }
 // render();
+
+*/
