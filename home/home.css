@@ -1,0 +1,610 @@
+body {
+        color: aliceblue;
+        font-size: 30px;
+        font-family: Arial, sans-serif;
+        height: 100vh;
+        margin: 0;
+        overflow-y: scroll;
+        scroll-snap-type: y mandatory;
+        overflow-x: hidden;
+        background-color: black;
+}
+
+.home {
+        background-image: url("/media/home3.jpg");
+        background-size: 100%;
+        height: 100vh;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+}
+
+.aboutt {
+        background-image: url("/media/galaxy-night-landscape.jpg");
+        background-size: cover;
+        color: #fff;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        box-sizing: border-box;
+        height: 100vh;
+}
+header {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        display: inline;
+}
+
+nav {
+        list-style: none;
+        display: inline;
+        gap: 20px;
+        transform: translate(100px, 700px);
+}
+
+nav button{
+        z-index: 500;
+        padding: 10px;
+        background-color: transparent;
+        color: white;
+        font-size: 30px;
+        border: none;
+        font-family: Bebas Neue, sans-serif;
+        font-weight: bold;
+        cursor: pointer;
+}
+nav button:hover{
+        text-decoration: underline;
+        color: #00f0ff;
+        /* Consistent color with text shadow */
+        transition: all 0.3s ease-in-out;
+}
+
+.about {
+        transform: translate(650px, -80px);
+        
+}
+
+.help {
+        transform: translate(720px, -80px);
+      
+}
+
+.team {
+        transform: translate(800px, -80px);
+       
+}
+h1{
+        transform: translate(100px,-160px);
+        font-size: 170px;
+        font-family: 'Nasalization', sans-serif;
+}
+.start_paragraph{
+        font-size: 45px;
+        transform: translate(10px, -280px);
+        font-family: 'Nasalization', sans-serif;
+        
+}
+
+@font-face {
+        font-family: 'Nasalization';
+        src: url('../home/nasalization-rg.woff2') format('woff2'),
+        url('../home/nasalization-rg.woff') format('woff'),
+        url('../home/nasalization-rg.otf') format('opentype');
+        font-weight: normal;
+        font-style: normal;
+}
+.explore_btn{
+        
+        transform: translate(-50px, 50px);
+        width: 800px;
+        padding: 10px;
+        background-color: transparent;
+        color: white;
+        font-size: 80px;
+        font-family: 'Nasalization', sans-serif;
+        margin-top: 1px;
+        margin-left: 100px;
+        border-radius: 20px;
+        cursor: pointer;
+        background-color: transparent;
+        /* Dark background to enhance glow */
+        border: none;
+        border-radius: 10px;
+        text-shadow: 0 0 10px #d36b2f, 0 0 20px #bd6705, 0 0 30px #c24308, 0 0 40px #df5d12;
+        box-shadow: 0 0 15px rgba(223, 82, 16, 0.5);
+}
+.explore_btn:hover{
+        background-color:  black ;
+        box-shadow: 0 0 15px rgba(114, 63, 4, 0.8);
+}
+
+
+
+.gif{
+        
+}
+
+h2{
+        transform: translate(-80px, -120px);
+        font-size: 70px;
+        font-family: 'Nasalization', sans-serif;
+}
+
+.description {
+        font-size: 25px;
+        margin: 20px;
+        width: 53%;
+        padding: 20px;
+        box-shadow: 0 0 25px rgba(143, 140, 140, 0.5);
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        border-radius: 10px;
+        text-align: center;
+        transform: translate(10px, -100px);
+        line-height: 1.8;
+        margin-bottom: 15px;
+        text-align: justify;
+}
+.description b{
+        font-size: 30px;
+        font-family: 'Nasalization', sans-serif;
+}
+
+.divv{
+
+        background-color: black;
+        height: 5vh;
+
+}
+.helpp {
+        background-image: url("/media/galaxy-night-panoramic.jpg");
+        background-size: cover;
+        height: 100vh;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+}
+
+.helpp {
+        padding: 40px;
+        /* Dark green background */
+        color: white;
+        border-radius: 8px;
+        margin-top: 50px;
+}
+
+.helpp .row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 20px;
+}
+
+.helpp h2 {
+        font-size: 42px;
+        color: orange;
+        margin-bottom: 20px;
+}
+
+
+.helpp .col-lg-6 {
+        flex: 1;
+        max-width: 60%;
+        padding: 20px;
+       
+        
+}
+
+
+.helpp p {
+        font-size: 25px;
+        margin: 20px;
+        width: 80%;
+        padding: 20px;
+        box-shadow: 0 0 25px rgba(143, 140, 140, 0.5);
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        border-radius: 10px;
+        text-align: center;
+        transform: translate(10px, -100px);
+        line-height: 1.8;
+        margin-bottom: 15px;
+        text-align: justify;
+}
+
+.helpp strong {
+        color: orange;
+}
+
+@media (max-width: 768px) {
+        .helpp .col-lg-6 {
+                max-width: 100%;
+        }
+}
+
+.teamm {
+        height: 100vh;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: black;
+        position: relative;
+        /* Make sure .teamm is positioned relative for absolute positioning of stars */
+}
+
+ .stars {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        /* Ensure stars don't block clicks */
+}
+
+ .star {
+        position: absolute;
+        background-color: white;
+        /* Star color */
+        border-radius: 50%;
+        opacity: 0.8;
+        animation: twinkle 1s infinite alternate;
+        z-index: 10000;
+        transition: transform 0.5s ease;
+}
+
+@keyframes twinkle {
+        0% {
+                opacity: 0.8;
+        }
+
+        100% {
+                opacity: 1;
+        }
+}
+
+
+.planet {
+        transform: translate(800px, -1350px);
+        
+}
+
+
+.rocket {
+        transform: translate(600px, 200px);
+        animation: hoverRocket 2s infinite alternate;
+}
+
+@keyframes hoverRocket {
+        0% {
+                transform: translate(600px, 150px);
+        }
+
+        100% {
+                transform: translate(600px, 50px);
+        }
+}
+
+
+.space_man {
+        transform: translate(400px, 700px);
+        animation: space_man_hover 2s infinite alternate;
+}
+
+@keyframes space_man_hover {
+        0% {
+                transform: translate(400px, -400px);
+        }
+
+        100% {
+                transform: translate(400px, -480px);
+        }
+}
+
+
+.teamm h2 {
+     transform: translate(10px,780px);
+}
+.teamm h3  {
+        transform: translate(-800px,700px);
+        font-size: 45px;
+        font-family: 'Nasalization', sans-serif;
+}
+.teamm p {
+       
+        transform: translate(-800px, 700px);
+        font-size: 35px;
+}
+.teamm b {
+        transform: translate();
+}
+
+
+.footer {
+        background-color: #000000;
+        color: #ffffff;
+        padding: 40px 20px;
+        text-align: left;
+        font-family: Arial, sans-serif;
+        position: relative;
+}
+
+.footer-content {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        max-width: 1200px;
+        margin: 0 auto;
+}
+
+.footer-column {
+        flex: 1;
+        min-width: 150px;
+        margin: 20px;
+}
+
+.footer-column h4 {
+        margin-bottom: 15px;
+        color: orange;
+        font-size: 1.2em;
+}
+
+.footer-column ul {
+        list-style: none;
+        padding: 0;
+}
+
+.footer-column ul li {
+        margin-bottom: 10px;
+}
+
+.footer-column ul li a {
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 0.9em;
+}
+
+.footer-column ul li a:hover {
+        text-decoration: underline;
+        color: orange;
+}
+
+.footer-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 40px;
+        border-top: 1px solid #444444;
+        padding-top: 20px;
+}
+
+.footer-bottom p {
+        margin: 0;
+        font-size: 0.9em;
+        color: #888888;
+}
+
+.social-links a {
+        color: #ffffff;
+        margin-right: 15px;
+        font-size: 1.2em;
+}
+
+.social-links a:hover {
+        color: orange;
+}
+.newsletter{
+        text-align: center;
+}
+.email{
+        background-color: transparent;
+        width: 300px;
+        height: 50px;
+        color: white;
+        font-size: large;
+}
+
+.subscribe{
+        width: 180px;
+        height: 50px;
+        font-weight: bold;
+        font-size: large;
+        cursor: pointer;
+}
+
+
+/* Base styles for small devices (up to 600px) */
+@media (max-width: 600px) {
+        body {
+                font-size: 20px;
+        }
+
+        nav {
+                transform: translate(20px, 700px);
+        }
+
+        .about,
+        .help,
+        .team {
+                transform: translate(0px, 0px);
+        }
+
+        h1 {
+                font-size: 100px;
+                transform: translate(0px, 0px);
+        }
+
+        .start_paragraph {
+                font-size: 30px;
+                transform: translate(0px, 0px);
+        }
+
+        .explore_btn {
+                width: 300px;
+                font-size: 50px;
+                transform: translate(0px, 50px);
+        }
+
+        h2 {
+                font-size: 50px;
+                transform: translate(0px, 0px);
+        }
+
+        .description {
+                font-size: 20px;
+                width: 90%;
+                transform: translate(0px, 0px);
+        }
+
+        .footer-content {
+                flex-direction: column;
+                text-align: center;
+        }
+
+        .footer-column {
+                margin: 10px;
+        }
+
+        .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+        }
+
+        .email {
+                width: 200px;
+        }
+
+        .subscribe {
+                width: 150px;
+        }
+}
+
+/* For medium devices (up to 900px) */
+@media (max-width: 900px) {
+        body {
+                font-size: 25px;
+        }
+
+        nav {
+                transform: translate(50px, 700px);
+        }
+
+        .about,
+        .help,
+        .team {
+                transform: translate(0px, 0px);
+        }
+
+        h1 {
+                font-size: 120px;
+                transform: translate(50px, 0px);
+        }
+
+        .start_paragraph {
+                font-size: 35px;
+                transform: translate(0px, 0px);
+        }
+
+        .explore_btn {
+                width: 500px;
+                font-size: 60px;
+                transform: translate(0px, 50px);
+        }
+
+        h2 {
+                font-size: 60px;
+                transform: translate(0px, 0px);
+        }
+
+        .description {
+                font-size: 22px;
+                width: 70%;
+                transform: translate(0px, 0px);
+        }
+
+        .footer-content {
+                flex-direction: column;
+                text-align: center;
+        }
+
+        .footer-column {
+                margin: 15px;
+        }
+
+        .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+        }
+
+        .email {
+                width: 250px;
+        }
+
+        .subscribe {
+                width: 160px;
+        }
+}
+
+/* For large devices (up to 1200px) */
+@media (max-width: 1200px) {
+        body {
+                font-size: 28px;
+        }
+
+        nav {
+                transform: translate(70px, 700px);
+        }
+
+        .about,
+        .help,
+        .team {
+                transform: translate(0px, 0px);
+        }
+
+        h1 {
+                font-size: 140px;
+                transform: translate(70px, 0px);
+        }
+
+        .start_paragraph {
+                font-size: 40px;
+                transform: translate(0px, 0px);
+        }
+
+        .explore_btn {
+                width: 600px;
+                font-size: 70px;
+                transform: translate(0px, 50px);
+        }
+
+        h2 {
+                font-size: 65px;
+                transform: translate(0px, 0px);
+        }
+
+        .description {
+                font-size: 24px;
+                width: 60%;
+                transform: translate(0px, 0px);
+        }
+
+        .footer-content {
+                flex-direction: row;
+                justify-content: space-between;
+        }
+
+        .footer-bottom {
+                flex-direction: row;
+                justify-content: space-between;
+        }
+}

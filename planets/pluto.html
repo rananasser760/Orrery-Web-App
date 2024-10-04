@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planet Travel</title>
+    <style>
+        @font-face {
+            font-family: 'Nasalization';
+            src: url('../home/nasalization-rg.woff2') format('woff2'),
+                url('../home/nasalization-rg.woff') format('woff'),
+                url('../home/nasalization-rg.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'Nasalization', sans-serif;
+            background: url('/media/stars-galaxy-3840x2560-10307.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            font-size: 40px;
+            overflow: hidden;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            grid-template-rows: auto auto auto;
+            justify-items: center;
+            align-items: start;
+            height: 100vh;
+            text-align: center;
+            gap: 20px;
+        }
+
+        .info-box,
+        .image-box {
+            border: 2px solid white;
+            padding: 20px;
+            width: 400px;
+            height: 50vh;
+        }
+
+        button {
+            background-color: transparent;
+            font-family: 'Nasalization', sans-serif;
+            color: aliceblue;
+            font-size: larger;
+            border: 1px solid white;
+            border-radius: 10px;
+            padding: 5px;
+            padding-left: 10px;
+            padding-right: 10px;
+            cursor: pointer;
+            text-shadow: 0 0 5px #2185d6, 0 0 10px #1a91d6, 0 0 10px #089dc2, 0 0 10px #12a5df;
+            box-shadow: 0 0 15px rgba(16, 158, 223, 0.5);
+        }
+
+        button:hover {
+            background-color: rgb(19, 18, 18);
+            color: white;
+            box-shadow: 0 0 15px rgba(64, 4, 114, 0.8);
+        }
+
+        .view-more,
+        .exam_btn {
+            margin: 25px;
+        }
+
+        .image-box {
+            background: url("/image_planets/pluto_surface.jpg");
+            background-size: cover;
+        }
+
+        .info-box {
+            overflow-y: scroll;
+        }
+
+        /* Rotation Animation */
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .planet-image {
+            animation: rotate 10s linear infinite;
+            /* Adjust the duration as needed */
+            width: 600px;
+            /* Keep the width here */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="planet-info">
+            <h2>Planet Info</h2>
+            <div class="info-box" id="infoBox">Loading planet info...</div>
+            <a href="https://forms.gle/Ae8Ackioug2nQgpX7"><button id="exam" class="exam_btn">Start Exam</button></a>
+        </div>
+        <div class="planet-main">
+            <p class="time">Time on planet: <span id="planetTime"></span></p>
+            <img src="/image_planets/pluto.png" alt="Earth" width="600px" class="planet-image">
+            <p>press on the button to travel and explore VR</p>
+            <a href=""> <button class="travel-btn">Travel now &#x27A1;</button> </a>
+        </div>
+        <div class="planet-images">
+            <h2>Planet Images</h2>
+            <div class="image-box"></div>
+            <button id="viewMoreBtn" class="view-more">View more</button>
+        </div>
+    </div>
+
+    <script>
+        function updateTime() {
+            const timeElement = document.getElementById('planetTime');
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+
+            // Convert to 12-hour format
+            const displayHours = hours % 12 || 12;
+            const displayMinutes = minutes < 10 ? '0' + minutes : minutes;
+
+            const timeString = `${displayHours}:${displayMinutes} ${ampm}`;
+            timeElement.textContent = timeString;
+        }
+
+        // Initial call to update the time
+        updateTime();
+
+        // Update the time every second
+        setInterval(updateTime, 1000);
+
+       const apiUrl = 'https://api.le-systeme-solaire.net/rest/bodies/pluto';
+
+        function fetchPlutoInfo() {
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const infoBox = document.getElementById('infoBox');
+                    infoBox.innerHTML = `
+                <h3>${data.englishName}</h3>
+                <p><b>Mass:</b> ${data.mass.massValue} × 10^${data.mass.massExponent} kg</p>
+                <p><b>Gravity:</b> ${data.gravity} m/s²</p>
+                <p><b>Mean Radius:</b> ${data.meanRadius} km</p>
+                <p><b>Equatorial Radius:</b> ${data.equaRadius} km</p>
+                <p><b>Escape Velocity:</b> ${data.escape} m/s</p>
+                <p><b>Orbital Period:</b> ${data.sideralOrbit} days</p>
+                <p><b>Length of Day:</b> ${data.sideralRotation} hours</p>
+                <p><b>Inclination:</b> ${data.inclination} degrees</p>
+                <p><b>Albedo:</b> ${data.albedo}</p>
+                <p><b>Density:</b> ${data.density} kg/m³</p>
+                <p><b>Axial Tilt:</b> ${data.axialTilt} degrees</p>
+            `;
+                })
+                .catch(error => {
+                    console.error('Error fetching Pluto data:', error);
+                    document.getElementById('infoBox').innerHTML = 'Failed to load Pluto info.';
+                });
+        }
+
+        // Call the function to fetch Pluto info once the page loads
+        fetchPlutoInfo();
+
+
+
+
+
+
+
+        // View more button event
+        document.getElementById('viewMoreBtn').addEventListener('click', function () {
+            window.open('../planets_image_pages/pluto_img.html', '_blank');
+        });
+    </script>
+
+</body>
+
+</html>
