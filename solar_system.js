@@ -99,7 +99,8 @@ const plutoTexture = textureLoader.load("image/pluto.jpg");
 const saturnRingTexture = textureLoader.load("image/saturn_ring.png");
 const uranusRingTexture = textureLoader.load("image/uranus_ring.png");
 const earth_moonTexture = textureLoader.load("image/8k_moon.jpg");
-const mars_PhobosTexture = textureLoader.load("image/8k_moon.jpg");
+const mars_PhobosTexture = textureLoader.load("image/phobos_mars1.jpg");
+const mars_DeimosTexture = textureLoader.load("image/Deimos_mars2.jpg");
 
 //////////////////////////////////////
 // Creating scene
@@ -247,15 +248,19 @@ const planets = [
         ...genratePlanet(6, earthTexture, 62), // Earth's diameter is approximately 12,742 km
         rotaing_speed_around_sun: 0.01, // Earth takes 365.25 days to orbit the Sun
         self_rotation_speed: 0.02, // Earth rotates once every 24 hours
-        moon: generateMoon(2, earth_moonTexture, 72),  // Adding the moon here
+        moons: [
+            generateMoon(2.5, earth_moonTexture, 85) // Earth's moon
+        ],  // Adding the moon here
 
     },
     {
         ...genratePlanet(4, marsTexture, 78), // Mars' diameter should be about 6,779 km
         rotaing_speed_around_sun: 0.008, // Mars takes about 687 Earth days to orbit the Sun
         self_rotation_speed: 0.018, // Mars rotates once every 24.6 hours
-        
-        // has two moons phobos, phobos larger than Deimos
+        moons: [
+            generateMoon(2.5, mars_PhobosTexture, 85), // Phobos
+            generateMoon(1, mars_DeimosTexture, 90) // Deimos
+        ],
     },
     {
         ...genratePlanet(12, jupiterTexture, 100), // Jupiter's diameter is about 139,820 km
@@ -294,9 +299,11 @@ const planets = [
 
 ];
 
-planets[2].planetObj.add(planets[2].moon.moonOrbit); // Adding the moon to Earth's planet object
 
-
+// Ensure you add the moon orbit object to the planet object
+planets[2].planetObj.add(planets[2].moons[0].moonOrbit); // Adding Earth's moon to Earth
+planets[3].planetObj.add(planets[3].moons[0].moonOrbit); // Adding Phobos to Mars
+planets[3].planetObj.add(planets[3].moons[1].moonOrbit); // Adding Deimos to Mars
 
 //////////////////////////////////////
 //NOTE - GUI options
@@ -401,20 +408,37 @@ console.log(planetData);
 //Animation loop
 const animate = () => {
     requestAnimationFrame(animate);
+    
     planets.forEach((planet) => {
         // Rotate planets
         planet.planet.rotation.y += planet.self_rotation_speed * options.speed;
         planet.planetObj.rotation.y += planet.rotaing_speed_around_sun * options.speed;
-        if (planet.moon) {
-            planet.moon.moonOrbit.rotation.y += planet.rotaing_speed_around_sun * 0.001 * options.speed;  // Moon orbiting Earth
-            planet.moon.moon.rotation.y += 0.01 * options.speed; // Moon self-rotation
+
+        // Check if the planet has moons
+        if (planet.moons && planet.moons.length > 0) {
+            // Update moon's orbit
+            // Moon's orbiting speed
+
+            planet.moons.forEach((moon) => {
+
+                // Update moon self-rotation
+                mooon.moonOrbit.rotation.y = 0.005 * planet.planetObj.rotation.y;
+                moon.moon.rotation.y += 0.01 * options.speed; // Moon self-rotation
+
+                // Ensure the moon is added to its parent orbit
+                // if (!planet.moonOrbit.children.includes(moon.moon)) {
+                //     planet.moonOrbit.add(moon.moon); // Ensure the moon is added if not already present
+                // }
+            });
         }
     });
+
     updatePlanetName(); // Update planet name on each frame
     orbit.update();
     
     renderer.render(scene, camera);
 };
+
 
 animate();
 
