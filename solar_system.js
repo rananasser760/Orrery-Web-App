@@ -98,6 +98,7 @@ const neptuneTexture = textureLoader.load("image/2k_neptune.jpg");
 const plutoTexture = textureLoader.load("image/pluto.jpg");
 const saturnRingTexture = textureLoader.load("image/saturn_ring.png");
 const uranusRingTexture = textureLoader.load("image/uranus_ring.png");
+const earth_moonTexture = textureLoader.load("image/8k_moon.jpg")
 
 //////////////////////////////////////
 // Creating scene
@@ -207,6 +208,29 @@ const genratePlanet = (size, planetTexture, x, ring) => {
     };
 };
 
+
+// Function to create the Moon and add it to Earth
+const generateMoon = (size, earth_moonTexture, distanceFromEarth) => {
+    const moonGeometry = new THREE.SphereGeometry(size, 50, 50);
+    const moonMaterial = new THREE.MeshStandardMaterial({ map: earth_moonTexture });
+    const moon = new THREE.Mesh(moonGeometry, moonMaterial);
+
+    // Position the moon relative to Earth
+    const MoonObj = new THREE.Object3D();
+    moon.position.set(distanceFromEarth, 0, 0);
+
+    scene.add(MoonObj);
+
+    MoonObj.add(moon);
+    // createLineLoopWithMesh(MoonObj, 0xffffff, 3);
+    return {
+        moonOrbit: MoonObj,
+        moon: moon,
+    };
+};
+
+
+
 const planets = [
     {
         ...genratePlanet(3.2, mercuryTexture, 28), // Mercury's diameter should be about 4,880 km
@@ -222,6 +246,8 @@ const planets = [
         ...genratePlanet(6, earthTexture, 62), // Earth's diameter is approximately 12,742 km
         rotaing_speed_around_sun: 0.01, // Earth takes 365.25 days to orbit the Sun
         self_rotation_speed: 0.02, // Earth rotates once every 24 hours
+        moon: generateMoon(2, earth_moonTexture, 72),  // Adding the moon here
+
     },
     {
         ...genratePlanet(4, marsTexture, 78), // Mars' diameter should be about 6,779 km
@@ -261,7 +287,12 @@ const planets = [
         rotaing_speed_around_sun: 0.0007, // Pluto takes about 248 Earth years to orbit the Sun
         self_rotation_speed: 0.008, // Pluto rotates once every 6.4 Earth days
     },
+
+
 ];
+
+planets[2].planetObj.add(planets[2].moon.moonOrbit); // Adding the moon to Earth's planet object
+
 
 
 //////////////////////////////////////
@@ -295,7 +326,8 @@ const planetNames = [
     "Saturn",
     "Uranus",
     "Neptune",
-    "Pluto"
+    "Pluto",
+    "earthMoon"
 ];
 
 const planetDataa = {
@@ -370,6 +402,10 @@ const animate = () => {
         // Rotate planets
         planet.planet.rotation.y += planet.self_rotation_speed * options.speed;
         planet.planetObj.rotation.y += planet.rotaing_speed_around_sun * options.speed;
+        if (planet.moon) {
+            planet.moon.moonOrbit.rotation.y += planet.rotaing_speed_around_sun * 0.001 * options.speed;  // Moon orbiting Earth
+            planet.moon.moon.rotation.y += 0.01 * options.speed; // Moon self-rotation
+        }
     });
     updatePlanetName(); // Update planet name on each frame
     orbit.update();
