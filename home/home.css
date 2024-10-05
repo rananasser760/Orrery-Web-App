@@ -66,12 +66,12 @@ nav button:hover{
 }
 
 .about {
-        transform: translate(650px, -50px);
+        transform: translate(650px, -80px);
         
 }
 
 .help {
-        transform: translate(720px, -50px);
+        transform: translate(720px, -80px);
       
 }
 

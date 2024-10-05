@@ -2,6 +2,9 @@
 import * as THREE from "https://unpkg.com/three@0.127.0/build/three.module.js";
 import { OrbitControls } from "https://unpkg.com/three@0.127.0/examples/jsm/controls/OrbitControls.js";
 
+import { OBJLoader } from "https://unpkg.com/three@0.127.0/examples/jsm/loaders/OBJLoader.js";
+import getAsteroidBelt from "./getAsteroidBelt.js";
+
 
 // Fetch JSON data
 async function loadJSONData(url) {
@@ -462,6 +465,53 @@ function updatePlanetName() {
 
 console.log(planetData);
 
+function createAsteroidBelt() {
+    if (rock1 && rock2 && rock3 && !asteroidBelt) {
+        asteroidBelt = new THREE.Group();
+        let x = 10;
+        for (let i = 0; i < 130; i++) {
+            const rock = rock2.clone(); // Clone one of your rocks
+            rock.position.set(
+                Math.random() * 850 - 100, // Random position within a range
+                0,
+                Math.random() * 850 - 100
+            );
+            rock.rotation.set(
+                Math.random() * Math.PI,
+                Math.random() * Math.PI,
+                Math.random() * Math.PI
+            );
+            asteroidBelt.add(rock);
+            x+=10;
+        }
+
+
+        scene.add(asteroidBelt);
+    }
+}
+
+
+const loader = new OBJLoader();
+
+let rock1, rock2, rock3;
+let asteroidBelt;
+
+loader.load("rocks/Rock1.obj", function (object) {
+    rock1 = object;
+    createAsteroidBelt();
+});
+
+loader.load("rocks/Rock2.obj", function (object) {
+    rock2 = object;
+    createAsteroidBelt();
+});
+
+loader.load("rocks/Rock3.obj", function (object) {
+    rock3 = object;
+    createAsteroidBelt();
+});
+
+
 
 //////////////////////////////////////
 //Animation loop
@@ -478,19 +528,26 @@ const animate = () => {
 
             planet.moons.forEach((moon) => {
 
-                // Update moon self-rotation
-                // planet.moon.moonOrbit.rotation.y += planet.rotaing_speed_around_sun * 0.001 * options.speed;  // Moon orbiting Earth
                 moon.moon.rotation.y += 0.01 * options.speed;
 
             });
         }
     });
+    if (asteroidBelt) {
+        asteroidBelt.rotation.y += 0.001; // Rotate the entire belt
+
+        asteroidBelt.children.forEach(rock => {
+            rock.rotation.x = 0.002; // Rotate each rock
+            rock.rotation.y = 0.002;
+        });
+    }
 
     updatePlanetName(); // Update planet name on each frame
     orbit.update();
     
     renderer.render(scene, camera);
 };
+
 
 
 animate();
@@ -504,120 +561,3 @@ window.addEventListener("resize", () => {
 });
 
 
-
-/*
-// Asteroids/Comets around Earth
-// Asteroids/Comets around Earth
-// function createAsteroids() {
-//     const asteroidGroup = new THREE.Group();
-//     const asteroidMaterial = new THREE.MeshBasicMaterial({ color: 575689 });
-//     let p = 20;
-//     for (let i = 0; i < 15; i++) {
-//         const size = Math.random() * 10;
-//         const geometry = new THREE.SphereGeometry(size, 16, 16);
-//         const asteroid = new THREE.Mesh(geometry, asteroidMaterial);
-
-//         // Adjust the position around Earth
-//         asteroid.position.set(
-//             planets[2].planetObj.position.x + p, // Random offset around Earth
-//             planets[2].planetObj.position.y + p, // Random offset around Earth
-//             planets[2].planetObj.position.z   // Random offset around Earth
-//         );
-        
-//         asteroidGroup.add(asteroid);
-//         p +=10;
-//     }
-    
-//     scene.add(asteroidGroup);
-//     console.log("Asteroids added to the scene:", asteroidGroup.children.length); // Log the number of asteroids added
-// }
-
-// createAsteroids();
-
-
-// Add light source for the Sun
-// const sunLight = new THREE.PointLight(0xFFFFFF, 2, 100);
-// sunLight.position.set(0, 0, 0);
-scene.add(sunLight);
-
-// const apiKey = '4d2L3TDs3TJAQwG8mcEaVk6Hc1dBa6QFYfHdV63M';  // Replace with your NASA API key
-// const apiUrl = `https://api.nasa.gov/neo/rest/v1/feed?start_date=2024-10-01&end_date=2024-10-07&api_key=${apiKey}`;
-// const asteroidTexture = textureLoader.load('image/asteroid4.png');
-// console.log('Asteroid Texture:', asteroidTexture);
-
-// function displayAsteroidsAroundPlanets(planets, asteroidsData) {
-//     Object.keys(asteroidsData).forEach(date => {
-//         asteroidsData[date].forEach(asteroid => {
-//             planets.forEach(planetData => {
-//                 const planetPosition = planetData.position;
-//                 const asteroidName = asteroid.name;
-
-//                 const diameterKm = (asteroid.estimated_diameter.kilometers.estimated_diameter_max + asteroid.estimated_diameter.kilometers.estimated_diameter_min) / 2;
-//                 const velocity = parseFloat(asteroid.close_approach_data[0].relative_velocity.kilometers_per_second); // Velocity in km/s
-
-//                 const geometry = new THREE.SphereGeometry(diameterKm * 100, 32, 32);  // Scale the size of the asteroid
-//                 const material = new THREE.MeshBasicMaterial({ map: asteroidTexture });
-//                 const asteroidMesh = new THREE.Mesh(geometry, material);
-
-//                 console.log('Asteroid Mesh:', asteroidMesh);
-
-//                 const radius = 5 + Math.random() * 10; // Random radius around planet
-//                 const angle = Math.random() * Math.PI * 2; // Random angle for position
-//                 asteroidMesh.position.set(
-//                     planetPosition.x + radius * Math.cos(angle),
-//                     planetPosition.y,
-//                     planetPosition.z + radius * Math.sin(angle)
-//                 );
-
-//                 scene.add(asteroidMesh);
-//                 console.log('Asteroid added to scene:', asteroidMesh);
-
-//                 asteroidMesh.userData = {
-//                     velocity: velocity / 1000,  // Convert km/s to units more suitable for the scene
-//                     angle: angle,
-//                     radius: radius,
-//                     planetPosition: planetPosition
-//                 };
-
-//                 const textGeometry = new THREE.TextGeometry(asteroidName, { font: yourFont, size: 30, height: 20 });
-//                 const textMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
-//                 const textMesh = new THREE.Mesh(textGeometry, textMaterial);
-//                 textMesh.position.set(asteroidMesh.position.x, asteroidMesh.position.y + 0.5, asteroidMesh.position.z);
-//                 scene.add(textMesh);
-//                 console.log('Text added to scene:', textMesh);
-//             });
-//         });
-//     });
-// }
-
-// function animateAsteroids() {
-//     scene.traverse(object => {
-//         if (object.userData.velocity) {
-//             object.userData.angle += object.userData.velocity * 5; 
-//             object.position.set(
-//                 object.userData.planetPosition.x + object.userData.radius * Math.cos(object.userData.angle),
-//                 object.userData.planetPosition.y,
-//                 object.userData.planetPosition.z + object.userData.radius * Math.sin(object.userData.angle)
-//             );
-//             console.log('Asteroid position updated:', object.position);
-//         }
-//     });
-// }
-
-// fetch(apiUrl)
-//     .then(response => response.json())
-//     .then(data => {
-//         const asteroids = data.near_earth_objects;
-//         console.log('Fetched Asteroids Data:', asteroids);
-//         displayAsteroidsAroundPlanets(planets, asteroids);
-//     })
-//     .catch(error => console.error('Error fetching asteroid data:', error));
-
-// function render() {
-//     requestAnimationFrame(render);
-//     animateAsteroids();  // Update asteroid positions
-//     renderer.render(scene, camera);
-// }
-// render();
-
-*/
