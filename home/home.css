@@ -60,7 +60,7 @@ nav button{
 }
 nav button:hover{
         text-decoration: underline;
-        color: #00f0ff;
+        color: #ff7300;
         /* Consistent color with text shadow */
         transition: all 0.3s ease-in-out;
 }
@@ -76,7 +76,7 @@ nav button:hover{
 }
 
 .team {
-        transform: translate(800px, -80px);
+        transform: translate(800px, -50px);
        
 }
 h1{
